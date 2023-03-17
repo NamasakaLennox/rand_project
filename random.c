@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 int _strlen(char *str)
 {
 	int count = 0;
@@ -12,7 +13,7 @@ int _strlen(char *str)
 char *_input(void)
 {
 	int i = 0, len, spc = 0, j = 0, a = 0;
-	char names[1024], *str;
+	char names[1024], str[1024], *ptr;
 
 	printf("Please enter names separated by a space!\n");
 	scanf("%s\n", names);
@@ -23,19 +24,22 @@ char *_input(void)
 		i++;
 	}
 	len = i;
-	str = malloc(sizeof(char) * (len + 1));
 	for (i = 0; i <= spc; i++)
 	{
 		for (; j < len; j++)
 		{
 			if (names[j] == ' ')
-				str[i + j] = '\0';
+			{
+				j++;
+				break;
+			}
 			else
 				str[i + j] = names[j];
 		}
+		str[i + j] = '\0';
 	}
-	str[len] = '\0';
-	return (&str[2]);
+	ptr = &str[2];
+	return (ptr);
 }
 
 int main(void)
