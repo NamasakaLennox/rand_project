@@ -6,20 +6,19 @@
 void get_random(void)
 {
 	int num_people = 0, random, i;
-	char *person[30], name[100], *selected;
+	char *person[30], name[50];
 
 	printf("Enter the names members, Enter 'done' when finished\n");
-	do
+	printf("Person %d: ", num_people + 1);
+	scanf("%s\n", name);
+	while (strcmp(name, "done") != 0)
 	{
+		person[num_people] = malloc(sizeof(char) * (strlen(name) + 1));
+		strcpy(person[num_people], name);
+		num_people++;
 		printf("Person %d: ", num_people + 1);
 		scanf("%s\n", name);
-		if (strcmp(name, "done") != 0)
-		{
-			person[num_people] = malloc(sizeof(char) * (strlen(name) + 1));
-			strcpy(person[num_people], name);
-			num_people++;
-		}
-	} while (strcmp(name, "done") != 0);
+	}
 	if (num_people == 0)
 	{
 		printf("No names entered, quitting!\n");
