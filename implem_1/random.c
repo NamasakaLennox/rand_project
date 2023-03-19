@@ -1,61 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
-
-int _strlen(char *str)
+void get_random(void)
 {
-	int count = 0;
+	int num_people = 0, random, i;
+	char *person[30], name[100], *selected;
 
-	while (*str)
-		count++;
-	return (count);
-}
-char *_input(void)
-{
-	int i = 0, len, spc = 0, j = 0, a = 0;
-	char names[1024], str[1024], *ptr;
-
-	printf("Please enter names separated by a space!\n");
-	scanf("%s\n", names);
-	while (names[i] != '\0')
+	printf("Enter the names members, Enter 'done' when finished\n");
+	do
 	{
-		if (names[i] == ' ')
-			spc++;
-		i++;
-	}
-	len = i;
-	for (i = 0; i <= spc; i++)
-	{
-		for (; j < len; j++)
+		printf("Person %d: ", num_people + 1);
+		scanf("%s\n", name);
+		if (strcmp(name, "done") != 0)
 		{
-			if (names[j] == ' ')
-			{
-				j++;
-				break;
-			}
-			else
-				str[i + j] = names[j];
+			person[num_people] = malloc(sizeof(char) * (strlen(name) + 1));
+			strcpy(person[num_people], name);
+			num_people++;
 		}
-		str[i + j] = '\0';
+	} while (strcmp(name, "done") != 0);
+	if (num_people == 0)
+	{
+		printf("No names entered, quitting!\n");
+		exit(98);
 	}
-	ptr = &str[2];
-	return (ptr);
+	srand(time(NULL));
+	random = rand() % num_people;
+	printf("Our Lucky Winner is: %s\n", person[random]);
+	for (i = 0; i < num_people; i++)
+		free(person[i]);
 }
 
 int main(void)
 {
-	int random, size = 0;
-	int i;
-	char *str;
+	get_random();
 
-	// printf("Enter number of people:\n");
-	// scanf("%d\n", &num_people);
-	str = _input();
-	if (str == NULL)
-	{
-		printf("FAILED\n");
-		return (1);
-	}
-	printf("Our Lucky Winner is: %s\n", str);
 	return (0);
 }
